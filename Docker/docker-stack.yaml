@@ -1,0 +1,83 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: CF template to create instance to work with Docker
+
+Parameters:
+  OwnerName:
+    Type: String
+    Description: Enter your name (no spaces)
+
+  InstanceTypeParameter:
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - m1.small
+    Description: <
+      Enter t2.micro or m1.small.
+      Default is t2.micro as it is included in the Free Tier.
+
+Resources:
+  FirstSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: The first security group
+      GroupName: !Sub "${OwnerName}-sg"
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 0
+          ToPort: 65535
+          CidrIp: 0.0.0.0/0
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+          Description: Allows SSH from anywhere
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+          Description: Allows to access http from anywhere
+      VpcId: vpc-05f3b45a2b349c67e
+      Tags:
+        - Key: "CreatedBy"
+          Value:
+            Ref: OwnerName
+
+  DockerInstance:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      IamInstanceProfile: SSMRole
+      ImageId: "ami-0ed961fa828560210"
+      KeyName: student
+      InstanceType:
+        Ref: InstanceTypeParameter
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: true
+          DeleteOnTermination: true
+          DeviceIndex: "0"
+          GroupSet:
+            - Ref: FirstSG
+          SubnetId: "subnet-0cd2733ab52b83592"
+      Tags:
+        - Key: "CreatedBy"
+          Value:
+            Ref: OwnerName
+        - Key: "Name"
+          Value: !Sub "${OwnerName}-docker-instance"
+      UserData:
+        Fn::Base64:
+          !Sub |
+            #!/bin/bash -xe
+            sudo yum install docker -y 
+            sudo systemctl enable docker.service
+            sudo systemctl start docker.service
+
+Outputs:
+  ApplicationUrl:
+    Description: Application URL
+    Value: !Sub
+      - http://${PublicIP}
+      - {PublicIP: !GetAtt DockerInstance.PublicIp}
