@@ -17,8 +17,8 @@ Physical ID to connect to the EC2. Then the following commands are typed:
 - ansible-playbook playbook.yml -t clean_ec2_petclinic (THIS STOPS THE PETCLINIC PROCESS, NEXT COMMANDS ARE FOR DOCKER)
 - pwd
 - nano creds.sh
-- export DOCKERHUB_USER="DOCKERHUB_LIETOTAJVARDS"
-- export DOCKERHUB_PASS="DOCKERHUB_PAROLE"
+- export DOCKERHUB_USER="DOCKERHUB_LIETOTAJVARDS" (REPLACE WITH YOUR DOCKERHUB USERNAME)
+- export DOCKERHUB_PASS="DOCKERHUB_PAROLE" (REPLACE WITH YOUR DOCKERHUB PASSWORD)
 - source ./creds.sh
 - ansible-playbook playbook.yml \
     -t docker \
