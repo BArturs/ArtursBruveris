@@ -1,5 +1,6 @@
 ## RTU DevOps course 2022
-This repository consists of all the main excercises of RTU DevOps course 2022 that I've done.
+This repository consists of all the main excercises of RTU DevOps course 2022 that I've done. All the tasks (folders) include a readme file, which includes explanation 
+of what is done and the steps how to reveice the same result and also the results themselves.
 
 ## Contents
 - AWS_Emailing - this folder consists of AWS emailing exercise (about Amazon Simple Email
