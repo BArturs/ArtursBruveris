@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Git Pull') {
       steps {
-        git branch: "main", url: "https://github.com/BArturs/ArtursBruveris/JenkinsPipeline"
+        git branch: "main", url: "https://github.com/BArturs/RTU_Devops_Course_2022/JenkinsPipeline"
       }
     }
     stage ('Test') {
