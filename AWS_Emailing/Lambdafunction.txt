@@ -1,0 +1,53 @@
+import boto3
+from botocore.exceptions import ClientError
+
+TO = "<RECIPIENT>"
+FROM = "<SENDER>"
+
+BODY_TEXT = ("Email body for recipients with non-HTML email clients\r\n"
+            "Amazon SES Test (Python)\r\n"
+            "This email was sent with Amazon SES using the "
+            "AWS SDK for Python (Boto)."
+            )
+
+BODY_HTML = """<html>
+<head></head>
+<body>
+    <h1>Below email for HTML clients</h1>
+    <p>This e-mail was sent from Lambda using Simple Email Service and Boto3</p>
+</body>
+</html>
+            """
+
+ses = boto3.client('ses', region_name="eu-west-1")
+
+def lambda_handler(event, context):
+    # TODO implement
+    try:
+        response = ses.send_email(
+            Destination={
+                'ToAddresses': [TO]
+            },
+            Message={
+                'Body': {
+                    'Html': {
+                        'Charset': "UTF-8",
+                        'Data': BODY_HTML
+                    },
+                    'Text': {
+                        'Charset': "UTF-8",
+                        'Data': BODY_TEXT
+                    }
+                },
+                'Subject': {
+                    'Charset': "UTF-8",
+                    'Data': "Email sent from Lambda using SES"
+                }
+            },
+            Source=FROM
+        )
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+    else:
+        print("Email sent! Message ID:"),
+        print(response['MessageId'])
