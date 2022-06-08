@@ -11,5 +11,6 @@ Standart pipeline was made with SCM poll every minute (not necessary) and the Je
 script was added in the pipeline. Afterwards, build/run the pipeline.
 
 ## Results
+- ![Jenkins ready to use](https://ibb.co/HqqD7PC)
 - ![SCM](https://ibb.co/Tck2Mk5)
 - ![Pipeline Output](https://ibb.co/kDzXKV7)
