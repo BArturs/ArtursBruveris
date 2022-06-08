@@ -9,3 +9,7 @@ This pipeline consists of 3 stages:
 ## How to
 Standart pipeline was made with SCM poll every minute (not necessary) and the Jenkinsfile (from this repo's folder "JenkinsPipeline") 
 script was added in the pipeline. Afterwards, build/run the pipeline.
+
+## Results
+- ![SCM](https://ibb.co/Tck2Mk5)
+- ![Pipeline Output](https://ibb.co/kDzXKV7)
