@@ -27,5 +27,5 @@ Physical ID to connect to the EC2. Then the following commands are typed:
 - ansible-playbook playbook.yml -t clean_docker_petclinic (THIS STOPS THE PETCLINIC PROCESS ON DOCKER)
 
 ## Results
-![Petclinic on EC2](https://ibb.co/Nx7sXCj)
-![Petclinic on Docker](https://ibb.co/6rLNVym)
+- ![Petclinic on EC2](https://ibb.co/Nx7sXCj)
+- ![Petclinic on Docker](https://ibb.co/6rLNVym)
